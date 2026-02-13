@@ -15,7 +15,7 @@ AI Civic Companion aligns with the mission of **AI for Bharat** by:
 # 🤝 Team
 
 AI for Bharat Hackathon Submission  
-Team Members: (Add names)
+Team Members: Jaspreet Singh Nahal & Pankaj Joshi
 
 ---
 
