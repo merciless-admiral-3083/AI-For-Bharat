@@ -1,182 +1,139 @@
-# AI Supply Chain Risk Alert System
+# AI Civic Companion – System Design (AWS Architecture)
 
-## 1. Overview
+## 1. Architecture Overview
 
-The AI Supply Chain Risk Alert System is an early-warning platform that monitors global events and predicts potential supply chain disruptions. It analyzes public data sources such as news feeds, weather alerts, and trade reports to generate risk scores and user-friendly alerts for businesses.
+AI Civic Companion is built on a scalable, serverless AWS architecture using LLMs, speech AI, and RAG pipelines.
 
-The goal is to help small businesses, exporters, and logistics operators anticipate disruptions and take preventive action.
+It supports text, voice, and low-bandwidth interfaces.
 
 ---
 
-## 2. System Architecture
+## 2. High-Level Architecture Diagram
 
-### 2.1 High-Level Architecture
-
-Data Sources → Data Collection Module → AI Analysis Engine → Risk Scoring Engine → Alert System → User Dashboard
-
-### 2.2 System Architecture Diagram
 ┌─────────────────────────────────────────────────────────────┐
-│                        Data Sources                         │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
-│  │  News    │  │ Weather  │  │  Trade   │  │ Social   │     │
-│  │  APIs    │  │  APIs    │  │  Data    │  │  Media   │     │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
+│                        Data Sources                          │
+│  Govt Databases | NGO Data | Health Info | Scheme Portals   │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                  Data Collection Layer                      │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  Data Ingestion Service (Scheduled Jobs)             │   │
-│  │  - API Connectors                                    │   │
-│  │  - Data Validation                                   │   │
-│  │  - Data Cleaning & Preprocessing                     │   │
-│  │  - Storage (Cloud Database)                          │   │
-│  └──────────────────────────────────────────────────────┘   │
+│                  Data Ingestion Layer                        │
+│ AWS Lambda + AWS Glue + API Gateway                         │
+│ - API ingestion                                             │
+│ - Data cleaning                                             │
+│ - Normalization                                             │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      Data Storage                           │
+│  S3 (Raw + Processed Data)                                  │
+│  DynamoDB (User Profiles)                                   │
+│  OpenSearch (Vector DB)                                     │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
 │                    AI Processing Layer                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
-│  │     NLP      │  │   Pattern    │  │     Risk     │       │
-│  │   Analysis   │  │  Detection   │  │   Scoring    │       │
-│  │ - Event      │  │ - Trend      │  │ - Severity   │       │
-│  │   Extraction │  │   Analysis   │  │ - Impact     │       │
-│  │ - NER        │  │ - Historical │  │ - Probability│       │
-│  │ - Sentiment  │  │   Matching   │  │ - Confidence │       │
-│  └──────────────┘  └──────────────┘  └──────────────┘       │
+│  Amazon Bedrock (LLMs)                                      │
+│  RAG Pipeline                                               │
+│  Amazon Comprehend (NLP)                                    │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                    Risk Intelligence Engine                 │
-│  - Aggregates multi-source signals                          │
-│  - Computes regional/route risk score                       │
-│  - Generates AI summaries                                   │
-│  - Suggests alternative suppliers/routes                    │
+│                    Application Layer                        │
+│ API Gateway + Lambda                                        │
+│ Personalization Engine                                      │
+│ Eligibility Logic                                           │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                        Alert & Dashboard Layer              │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  User Dashboard                                      │   │
-│  │  - Risk Heatmap                                      │   │
-│  │  - Industry Filters                                  │   │
-│  │  - Alert Feed                                        │   │
-│  │  - Historical Trends                                 │   │
-│  └──────────────────────────────────────────────────────┘   │
-│                                                             │
-│  Alert System                                               │
-│  - Email Notifications                                      │
-│  - Mobile Push (Future)                                     │
-│  - API Integration (Future)                                 │
+│                     User Interfaces                         │
+│ WhatsApp Bot | Mobile App | Web | IVR Calls                │
 └─────────────────────────────────────────────────────────────┘
 
+---
+
+## 3. AWS Services Used
+
+### Compute
+- AWS Lambda (serverless logic)
+- AWS Fargate (optional container workloads)
+
+### AI/ML
+- Amazon Bedrock (LLMs)
+- Amazon Comprehend
+- Amazon Transcribe
+- Amazon Polly
+
+### Storage
+- Amazon S3
+- DynamoDB
+- OpenSearch
+
+### Integration
+- API Gateway
+- Step Functions
+- EventBridge
+
+### Security
+- IAM
+- AWS KMS
+- Cognito (user identity)
 
 ---
 
-## 3. Components
+## 4. RAG Pipeline
 
-### 3.1 Data Collection Module
-
-Collects data from:
-- Global news APIs
-- Weather and climate data APIs
-- Public trade and logistics reports
-
-Functions:
-- Scheduled data fetching
-- Data cleaning and preprocessing
-- Storage in structured format
-
----
-
-### 3.2 AI Analysis Module
-
-Uses Natural Language Processing (NLP) to:
-
-- Detect disruption-related keywords (flood, strike, war, port delay)
-- Extract affected regions and industries
-- Classify severity of events
-- Generate concise risk summaries
-
-Models:
-- NLP classification models
-- Named Entity Recognition (NER)
-- Large Language Model (LLM) for summarization
-
----
-
-### 3.3 Risk Scoring Engine
-
-Combines multiple signals:
-
-- Event severity
-- Geographic impact
-- Industry relevance
-- Historical disruption patterns
-
-Outputs:
-- Region-based risk score (Low / Medium / High)
-- Route-based risk score
-- Confidence level
-
----
-
-### 3.4 Alert System
-
-Generates simple alerts such as:
-
-> “High flood risk in Vietnam may delay textile exports. Consider alternate suppliers.”
-
-Features:
-- Dashboard notifications
-- Email alerts (future enhancement)
-- Mobile notifications (future enhancement)
-
----
-
-### 3.5 User Dashboard
-
-Displays:
-- Global risk heatmap
-- Industry-specific alerts
-- Risk history trends
-- AI-generated summaries
-- Suggested alternative sourcing regions
-
----
-
-## 4. AI Methods Used
-
-- Natural Language Processing (NLP)
-- Event classification
-- Named Entity Recognition (NER)
-- Trend detection
-- Predictive risk scoring
-- LLM-based summarization
+1. Scheme data stored in S3  
+2. Chunking & embeddings  
+3. Stored in OpenSearch  
+4. Query → semantic retrieval  
+5. Bedrock LLM generates answer  
 
 ---
 
 ## 5. Scalability
 
-- Cloud-based deployment
-- Modular microservice architecture
-- API-first design for integration
-- Expandable to global datasets
+- Fully serverless
+- Auto-scaling APIs
+- Multi-region deployment ready
 
 ---
 
 ## 6. Security & Privacy
 
-- Uses publicly available data
-- No sensitive user trade data required
-- Secure authentication for dashboard access
+- Encryption at rest and transit
+- Minimal PII storage
+- Consent-based data usage
+- Role-based access control
 
 ---
 
-## 7. Future Enhancements
+## 7. Cost Optimization
 
-- Real-time shipment tracking integration
-- Machine learning forecasting models
-- Industry-specific risk personalization
-- Mobile application
-- API for enterprise integration
+- Serverless billing model
+- S3 lifecycle policies
+- On-demand inference
+
+---
+
+## 8. Monitoring
+
+- CloudWatch logs
+- AWS X-Ray tracing
+- Usage analytics dashboard
+
+---
+
+## 9. Deployment Strategy
+
+- CI/CD via AWS CodePipeline
+- Infrastructure as Code (CloudFormation/CDK)
+
+---
+
+## 10. Future Enhancements
+
+- AI voice agents
+- Predictive scheme alerts
+- Offline-first mobile app
+- Satellite connectivity support
+
