@@ -1,17 +1,24 @@
-# AI Supply Chain Risk Alert System
 
-## Overview
-An AI-powered system that predicts and alerts businesses about global supply chain disruptions using news, weather, and trade data.
+---
 
-## Problem
-Businesses often face unexpected supply chain disruptions leading to losses and delays.
+# 🏆 Hackathon Vision
 
-## Solution
-Our AI analyzes global signals and provides early warnings and risk scores so businesses can plan ahead.
+AI Civic Companion aligns with the mission of **AI for Bharat** by:
 
-## Files
-- requirements.md — project requirements
-- design.md — system design
+- Solving real societal problems  
+- Enabling inclusive access  
+- Using AI responsibly  
+- Designing scalable public-good infrastructure  
 
-## Author
-Jaspreet Singh Nahal & Pankaj Joshi
+---
+
+# 🤝 Team
+
+AI for Bharat Hackathon Submission  
+Team Members: (Add names)
+
+---
+
+# 📜 License
+
+Prototype concept for hackathon use.
