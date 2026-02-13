@@ -1,104 +1,140 @@
-# AI Supply Chain Risk Alert System – Requirements Document
+# AI Civic Companion – Requirements Document
 
-## 1. Introduction
+## 1. Project Overview
 
-This document defines the functional and non-functional requirements for the AI Supply Chain Risk Alert System.
+AI Civic Companion is a multilingual AI assistant that helps citizens—especially underserved communities—access government schemes, healthcare resources, legal rights, jobs, and emergency information through simple conversational interfaces.
+
+The system works across text, voice, and low-bandwidth channels (e.g., WhatsApp, SMS, voice calls).
+
+Goal: Bridge the information and access gap between citizens and public services using AI.
 
 ---
 
 ## 2. Problem Statement
 
-Businesses often face unexpected supply chain disruptions due to:
+Many citizens in India and globally fail to access public welfare benefits due to:
 
-- Natural disasters
-- Geopolitical conflicts
-- Port congestion
-- Labor strikes
-- Policy changes
+- Lack of awareness
+- Language barriers
+- Low digital literacy
+- Complex documentation processes
+- Fragmented information sources
+- Limited internet access
 
-These disruptions lead to financial losses, delays, and price instability.
+This leads to exclusion from essential services.
 
 ---
 
 ## 3. Objectives
 
-The system must:
-
-- Detect potential supply chain disruptions
-- Assign risk scores to affected regions/routes
-- Provide early alerts
-- Present insights in simple language
+- Provide a single AI interface for public services
+- Support multiple Indian and global languages
+- Enable voice-first access for low literacy users
+- Deliver personalized scheme recommendations
+- Work in low-bandwidth environments
+- Ensure trustworthy and verified information
 
 ---
 
 ## 4. Target Users
 
-- Small and Medium Enterprises (MSMEs)
-- Exporters and importers
-- Logistics operators
-- Farmers dependent on imported inputs
+Primary:
+- Rural populations
+- Low-income urban communities
+- Elderly citizens
+- Migrant workers
+- People with low digital literacy
+
+Secondary:
+- NGOs
+- Government agencies
+- Social workers
+- International development organizations
 
 ---
 
-## 5. Functional Requirements
+## 5. Key Features
 
-### FR1: Data Collection
-- The system shall fetch data from news APIs.
-- The system shall fetch weather and climate alerts.
-- The system shall store collected data in structured format.
+### 5.1 Conversational AI
+- Natural language interaction
+- Voice and text support
+- Context-aware responses
 
-### FR2: Risk Detection
-- The system shall detect disruption-related events.
-- The system shall extract affected regions and industries.
-- The system shall classify severity levels.
+### 5.2 Multilingual Support
+- Major Indian languages
+- Expandable to global languages
 
-### FR3: Risk Scoring
-- The system shall calculate a risk score for each region.
-- The system shall update scores periodically.
-- The system shall display risk levels (Low, Medium, High).
+### 5.3 Scheme Discovery
+- Personalized recommendations
+- Eligibility guidance
+- Required document checklist
 
-### FR4: Alert Generation
-- The system shall generate user-friendly alert messages.
-- The system shall display alerts on the dashboard.
+### 5.4 Voice Interface
+- Speech-to-text
+- Text-to-speech
+- IVR compatibility
 
-### FR5: Dashboard
-- The system shall display current risk levels.
-- The system shall show AI-generated summaries.
-- The system shall provide suggested alternatives.
+### 5.5 Offline/Low Bandwidth Mode
+- SMS-based queries
+- Cached responses
+- Lightweight interactions
 
----
-
-## 6. Non-Functional Requirements
-
-### NFR1: Performance
-- The system should process new data within a defined time window.
-- Risk scores should update at least once daily (hackathon version).
-
-### NFR2: Scalability
-- The system should support increasing data sources.
-- The architecture should allow global expansion.
-
-### NFR3: Usability
-- The dashboard must be simple and non-technical.
-- Alerts must be easy to understand.
-
-### NFR4: Security
-- The system should use secure authentication.
-- No sensitive user data should be required.
+### 5.6 Trust & Transparency
+- Source citations
+- Government database integration
+- Verified information pipeline
 
 ---
 
-## 7. Constraints
+## 6. Functional Requirements
 
-- Limited access to proprietary trade data
-- Dependence on public APIs
-- Limited development time (hackathon scope)
+FR1: Users can ask questions in their language  
+FR2: System recommends relevant schemes  
+FR3: Voice interaction supported  
+FR4: User profile for personalization  
+FR5: Admin panel to update datasets  
+FR6: Provide step-by-step guidance  
 
 ---
 
-## 8. Success Criteria
+## 7. Non-Functional Requirements
 
-- Accurate detection of disruption events
-- Clear and actionable alerts
-- Positive feedback from pilot users
-- Scalable architecture ready for expansion
+- High availability
+- Scalable to millions of users
+- Secure data handling
+- Low latency responses
+- Privacy-first design
+
+---
+
+## 8. Success Metrics
+
+- Number of users served
+- Scheme discovery rate
+- Successful benefit claims
+- User satisfaction score
+- Regional adoption rate
+
+---
+
+## 9. Future Scope
+
+- Integration with digital identity systems
+- NGO dashboards
+- Predictive welfare delivery
+- AI-based fraud detection
+
+---
+
+## 10. Impact
+
+### India
+- Improve welfare access
+- Reduce misinformation
+- Empower rural citizens
+
+### Global
+- Adaptable to developing nations
+- NGO and UN deployment potential
+- Refugee support systems
+
